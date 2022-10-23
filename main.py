@@ -1,4 +1,5 @@
 import requests
+import json
 from flask import Flask
 
 app = Flask(__name__)
@@ -20,10 +21,12 @@ class APIService:
 def myfivemserver(serverip):
     apiservice = APIService(serverip)
 
-    return '<code>' \
-           f'${apiservice.info_data}' \
-           f'${apiservice.players_data}' \
-           '</code>'
+    values = {
+        "infos": apiservice.info_data,
+        "players": apiservice.players_data
+    }
+    
+    return json.dumps(values)
 
 
 if __name__ == "__main__":
